@@ -1,7 +1,10 @@
 all: hello.exe output/index.wasm output/index.html
 
-hello.exe:      hello.cs
-	mcs -nostdlib -noconfig -r:../../dist/lib/mscorlib.dll hello.cs -out:hello.exe
+test.test.dll: test.cs
+	mcs -nostdlib -noconfig -r:../../dist/lib/mscorlib.dll -out:test.test.dll test.cs -t:library
+
+hello.exe:      hello.cs test.test.dll
+	mcs -nostdlib -noconfig -r:../../dist/lib/mscorlib.dll -r:test.test.dll hello.cs -out:hello.exe
 
 output/index.wasm:      hello.exe
 	../../dist/bin/mono-wasm -i hello.exe -o output

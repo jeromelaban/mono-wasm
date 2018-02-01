@@ -63,6 +63,9 @@ class Hello
         var d = HtmlPage.Document;
         Console.WriteLine($"Document Location: {d.Location}");
 
+        var a = MyExtensions.Create(() => Console.WriteLine("Test1"));
+        a();
+
         PrintHtmlElements(d.DocumentElement, 0);
 
         var p = d.CreateElement("p");
